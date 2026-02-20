@@ -1,61 +1,31 @@
 "use client";
-import { CircleX, Loader, Search, SearchIcon } from "lucide-react";
+import { useProductStore } from "@/app/store/useProductStore";
+import { CircleX, Loader, Search } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-function SearchModal() {
+export default function SearchModal() {
+  const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
-  const [debouncedSearch, setDebouncedSearch] = useState("");
-  const loading = false;
-  const searchResults = [
-    {
-      _id: "hdfn",
-      name: "Headphones with comatozze saree",
-      image:
-        "https://media.istockphoto.com/id/93355119/photo/indian-saris.jpg?s=612x612&w=0&k=20&c=afmfiTJg0VAmIY6P_TJ_JYsTfGhUdevv18WXQRUZ8NQ=",
-      discountPrice: 2944320,
-      price: 200,
-    },
-    {
-      _id: "fw4g",
-      name: "Headphones with comatozze saree",
-      image:
-        "https://media.istockphoto.com/id/93355119/photo/indian-saris.jpg?s=612x612&w=0&k=20&c=afmfiTJg0VAmIY6P_TJ_JYsTfGhUdevv18WXQRUZ8NQ=",
-      discountPrice: 290,
-      price: 200,
-    },
-    {
-      _id: "sfg3",
-      name: "Headphones with comatozze saree",
-      image:
-        "https://media.istockphoto.com/id/93355119/photo/indian-saris.jpg?s=612x612&w=0&k=20&c=afmfiTJg0VAmIY6P_TJ_JYsTfGhUdevv18WXQRUZ8NQ=",
-      discountPrice: 290,
-      price: 200,
-    },
-    {
-      _id: "sfew",
-      name: "Headphones with comatozze saree",
-      image:
-        "https://media.istockphoto.com/id/93355119/photo/indian-saris.jpg?s=612x612&w=0&k=20&c=afmfiTJg0VAmIY6P_TJ_JYsTfGhUdevv18WXQRUZ8NQ=",
-      discountPrice: 290,
-      price: 200,
-    },
-    {
-      _id: "das",
-      name: "Headphones with comatozze saree",
-      image:
-        "https://media.istockphoto.com/id/93355119/photo/indian-saris.jpg?s=612x612&w=0&k=20&c=afmfiTJg0VAmIY6P_TJ_JYsTfGhUdevv18WXQRUZ8NQ=",
-      discountPrice: 290,
-      price: 200,
-    },
-  ];
+  const { searchResults, isSearching, searchProductsNavbar } =
+    useProductStore();
+
+  // Debounce search input
+  useEffect(() => {
+    if (!search) return;
+    const handler = setTimeout(() => {
+      searchProductsNavbar(search);
+    }, 500); // 500ms debounce
+    return () => clearTimeout(handler);
+  }, [search]);
+
   return (
-    <div
-      onClick={() => document.getElementById("search_modal").showModal()}
-      className=" cursor-pointer"
-    >
-      <SearchIcon size={20} />
-      <dialog id="search_modal" className="modal">
+    <>
+      <div className="cursor-pointer" onClick={() => setIsOpen(true)}>
+        <Search size={20} className=" text-black" />
+      </div>
+
+      <dialog id="search_modal" className="modal" open={isOpen}>
         <div className="modal-box bg-subMain text-text h-[30rem] p-4 max-w-4xl cursor-default">
           {/* Search Input */}
           <div className="w-full relative">
@@ -68,7 +38,8 @@ function SearchModal() {
               placeholder="Search products"
             />
             <button className="absolute left-2 top-[21px]">
-              <Search className="w-5 h-5 opacity-60" />
+              {" "}
+              <Search className="w-5 h-5 opacity-60" />{" "}
             </button>
             {search.length > 0 && (
               <div
@@ -81,45 +52,37 @@ function SearchModal() {
           </div>
 
           {/* Search Results */}
-          <div className="w-full mt-2 flex flex-col">
-            {loading ? (
-              <div className="w-full flex items-center justify-center mt-10 ">
+          <div className="w-full mt-2 flex flex-col overflow-y-auto max-h-96">
+            {isSearching ? (
+              <div className="w-full flex items-center justify-center mt-10">
                 <Loader className="animate-spin" />
               </div>
             ) : searchResults.length > 0 ? (
-              <ul className="w-full overflow-y-auto max-h-96">
+              <ul>
                 {searchResults.map((product) => (
-                  <Link href={`/product/${product?._id}`} key={product?._id}>
-                    <div className="py-2 flex items-start gap-3 hover:bg-main px-4 rounded-md">
+                  <Link href={`/products/${product._id}`} key={product._id}>
+                    <div
+                      onClick={() => {
+                        setIsOpen(false); // <-- close modal
+                        setSearch(""); // <-- reset input
+                      }}
+                      className="py-2 flex items-start gap-3 hover:bg-main px-4 rounded-md cursor-pointer"
+                    >
                       <img
-                        src={product?.image}
-                        alt={product?.name}
-                        className="size-20 object-cover rounded-md"
+                        src={product?.thumbnailImage}
+                        alt={product?.title}
+                        className="w-20 h-20 object-cover rounded-md"
                       />
                       <div>
-                        <h2 className="text-xl text-zinc-800">
-                          {product?.name}
+                        <h2 className="text-lg font-medium text-zinc-800">
+                          {product?.title}
                         </h2>
-
-                        <div className=" flex items-end gap-2">
-                          <h2 className=" font-medium text-2xl  ">
-                            <span className="font-bangla-regular">৳</span>
-
-                            {Number(product.discountPrice).toLocaleString(
-                              "en-US",
-                              {
-                                minimumFractionDigits: 2,
-                                maximumFractionDigits: 2,
-                              },
-                            )}
+                        <div className="flex items-end gap-2">
+                          <h2 className="font-semibold text-xl">
+                            ৳ {product?.discountPrice.toLocaleString()}
                           </h2>
-                          <h2 className=" text-gray-600 line-through mb-[1px] ">
-                            <span className="font-bangla-regular">৳</span>
-
-                            {Number(product.price).toLocaleString("en-US", {
-                              minimumFractionDigits: 2,
-                              maximumFractionDigits: 2,
-                            })}
+                          <h2 className="text-gray-600 line-through mb-[1px]">
+                            ৳ {product?.price.toLocaleString()}
                           </h2>
                         </div>
                       </div>
@@ -129,7 +92,7 @@ function SearchModal() {
               </ul>
             ) : (
               <p className="text-xl text-center mt-10 font-medium text-zinc-600">
-                {debouncedSearch ? "Nothing Found" : "Search Cars"}
+                {search ? "Nothing Found" : "Search Products"}
               </p>
             )}
           </div>
@@ -138,8 +101,6 @@ function SearchModal() {
           <button>Close</button>
         </form>
       </dialog>
-    </div>
+    </>
   );
 }
-
-export default SearchModal;

@@ -49,7 +49,7 @@ export default function Rating({ rating = 0, reviewCount = 0 }) {
     <div className="flex items-center gap-2">
       <div className="flex gap-1">{stars}</div>
       <span className="text-sm text-gray-600">
-        {rating.toFixed(1)} ({reviewCount})
+        {rating?.toFixed(1)} ({reviewCount})
       </span>
     </div>
   );

@@ -22,7 +22,7 @@ export default function Footer() {
   return (
     <footer className="bg-subMain">
       {/* ================= TOP CONTACT BAR ================= */}
-      <div className="max-w-6xl mx-auto bg-subMain pt-8">
+      <div className="max-w-6xl mx-auto bg-subMain pt-8 px-3 md:px-0">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 border-b border-border pb-10">
           {/* Visit Us */}
           <div className="flex items-center gap-4">
@@ -67,7 +67,7 @@ export default function Footer() {
       </div>
 
       {/* ================= MAIN FOOTER ================= */}
-      <div className=" pt-10 pb-10 max-w-6xl mx-auto">
+      <div className=" pt-10 pb-10 max-w-6xl mx-auto px-3 md:px-0">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Column 1 */}
           <div>

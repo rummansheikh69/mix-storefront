@@ -5,23 +5,22 @@ export const redirectToWhatsApp = ({
   validity,
   price,
 }) => {
-  const phoneNumber = "8801"; // your WhatsApp number
+  const phoneNumber = "8801984885004";
 
   const message = `
-Hello, I want to purchase this offer:
+*📦 New Order Request*
 
-Provider: ${providerName}
-Category: ${categoryTitle}
-Offer: ${offerTitle}
-Validity: ${validity}
-Price: ${price} TK
+*Provider:* ${providerName}
+*Plan:* ${categoryTitle}
 
-Please confirm.
+*Offer:* ${offerTitle}
+*Validity:* ${validity}
+*Price:* ${price} TK
+
+Please confirm this order.
 `;
 
   const encodedMessage = encodeURIComponent(message);
-
   const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-
   window.open(url, "_blank");
 };

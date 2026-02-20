@@ -7,6 +7,7 @@ const nextConfig = {
       "media.istockphoto.com",
       "i.pinimg.com",
       "i.pravatar.cc",
+      "res.cloudinary.com",
     ],
   },
 };

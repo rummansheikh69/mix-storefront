@@ -54,7 +54,7 @@ export default function ProvidersPage() {
                   <div>
                     <h2 className="font-semibold text-lg">{provider?.name}</h2>
                     <p className="text-sm text-gray-500">
-                      {provider?.categories?.length} Categories
+                      {provider?.categories?.length} Plan Available
                     </p>
                   </div>
                 </div>

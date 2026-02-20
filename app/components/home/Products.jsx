@@ -28,7 +28,7 @@ function Products() {
   return (
     <div className="pb-10 w-full grid grid-cols-12 gap-10">
       {/* Sidebar */}
-      <div className="col-span-3 bg-subMain sticky top-20 rounded-md h-max p-5">
+      <div className="col-span-3 bg-subMain sticky top-20 rounded-md h-max p-5 hidden md:block">
         <h2 className="font-medium text-zinc-600">Filter</h2>
 
         <div className="flex gap-2 mt-3">
@@ -72,10 +72,10 @@ function Products() {
       </div>
 
       {/* Products */}
-      <div className="col-span-9">
-        <div className="grid grid-cols-3 gap-5">
+      <div className=" col-span-12 md:col-span-9 px-3">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
           {products?.map((product) => (
-            <ProductCard key={product._id} product={product} />
+            <ProductCard key={product?._id} product={product} />
           ))}
         </div>
 

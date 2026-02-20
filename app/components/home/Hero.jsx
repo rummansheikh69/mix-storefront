@@ -40,7 +40,7 @@ function Hero() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className=" w-full md:max-w-6xl mx-auto">
       <div className="relative w-full overflow-hidden md:rounded-b-md h-56 md:h-80">
         {/* Slides */}
         {items.map((item, index) => (

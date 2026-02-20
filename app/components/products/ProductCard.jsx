@@ -6,7 +6,7 @@ import Link from "next/link";
 
 function ProductCard({ product }) {
   return (
-    <Link href={`/product/${product._id}`}>
+    <Link href={`/products/${product._id}`}>
       <div className=" h-[26rem] bg-subMain rounded-md border border-border relative overflow-hidden cursor-pointer">
         <div className=" w-full h-3/5 bg-red-500 group relative overflow-hidden">
           {/* <div
@@ -16,8 +16,8 @@ function ProductCard({ product }) {
           <Heart size={20} />
         </div> */}
           <Image
-            src={product.image}
-            alt={product.title}
+            src={product?.thumbnailImage}
+            alt={product?.title}
             fill
             className="object-cover group-hover:scale-110 transition-all duration-500"
           />
@@ -25,26 +25,31 @@ function ProductCard({ product }) {
 
         <div className=" h-full px-3 py-2">
           <h2 className=" text-[18.5px] font-medium text-nowrap truncate cursor-pointer font-bangla-regular ">
-            {product.title}
+            {product?.title}
           </h2>
-          <Rating rating={product.rating} reviewCount={product.totalReviews} />
+          <Rating
+            rating={product?.rating}
+            reviewCount={product?.totalReviews}
+          />
           <h2>
             In Stock{" "}
-            <span className=" font-medium text-teal-900">{product.stock}</span>
+            <span className=" font-medium text-teal-900">
+              {product?.inStock}
+            </span>
           </h2>
 
           <div className=" flex items-end gap-2">
             <h2 className=" font-medium text-2xl  ">
               <span className="font-bangla-regular">৳</span>
 
-              {Number(product.discountPrice).toLocaleString("en-US", {
+              {Number(product?.discountPrice).toLocaleString("en-US", {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               })}
             </h2>
             <h2 className=" text-gray-600 line-through mb-[1px]">
               <span className="font-bangla-regular">৳</span>
-              {Number(product.price).toLocaleString("en-US", {
+              {Number(product?.price).toLocaleString("en-US", {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               })}

@@ -1,3 +1,4 @@
+"use client";
 import { motion, AnimatePresence } from "framer-motion";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
@@ -19,7 +20,7 @@ function ImageGallery({ images }) {
   const [progress, setProgress] = useState(0); // for progress bar
   const intervalRef = useRef(null);
   const thumbRefs = useRef([]);
-  thumbRefs.current = images.map(
+  thumbRefs.current = images?.map(
     (_, i) => thumbRefs.current[i] ?? React.createRef(),
   );
 
@@ -41,14 +42,14 @@ function ImageGallery({ images }) {
   const closeFullscreen = () => setIsFullscreen(false);
 
   const nextImage = () => {
-    if (images.length > 0) {
-      setCurrent((prev) => (prev + 1) % images.length);
+    if (images?.length > 0) {
+      setCurrent((prev) => (prev + 1) % images?.length);
     }
   };
 
   const prevImage = () => {
-    if (images.length > 0) {
-      setCurrent((prev) => (prev - 1 + images.length) % images.length);
+    if (images?.length > 0) {
+      setCurrent((prev) => (prev - 1 + images?.length) % images?.length);
     }
   };
   const selectImage = useCallback((index) => {
@@ -56,9 +57,9 @@ function ImageGallery({ images }) {
   }, []);
 
   const startAutoplay = () => {
-    if (!intervalRef.current && images.length > 1) {
+    if (!intervalRef.current && images?.length > 1) {
       intervalRef.current = setInterval(() => {
-        setCurrent((prev) => (prev + 1) % images.length);
+        setCurrent((prev) => (prev + 1) % images?.length);
       }, 9000);
     }
   };
@@ -71,7 +72,7 @@ function ImageGallery({ images }) {
   }, []);
 
   useEffect(() => {
-    images.forEach((src) => {
+    images?.forEach((src) => {
       const img = new Image();
       img.src = src;
     });
@@ -114,7 +115,7 @@ function ImageGallery({ images }) {
     rafId = requestAnimationFrame(animateProgress);
 
     return () => cancelAnimationFrame(rafId);
-  }, [isFullscreen, images.length, current]); // dependencies
+  }, [isFullscreen, images?.length, current]); // dependencies
 
   //keyboard navigation
   useEffect(() => {

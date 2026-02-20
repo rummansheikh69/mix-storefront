@@ -5,10 +5,12 @@ import Products from "./components/home/Products";
 
 export default function Home() {
   return (
-    <div className=" min-h-screen w-full">
-      <div className=" max-w-6xl mx-auto">
+    <div className=" min-h-screen w-full ">
+      <div className=" w-full md:max-w-6xl mx-auto">
         <Hero />
-        <Category />
+        <div className=" hidden md:block">
+          <Category />
+        </div>
         <div className="w-full my-10 border-b border-zinc-300" />
         <Products />
       </div>

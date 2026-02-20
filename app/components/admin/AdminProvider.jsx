@@ -1,7 +1,6 @@
 "use client";
 import { useState, useRef } from "react";
 import { useProviderStore } from "../../store/useProviderStore";
-import AdminNavigation from "@/app/components/admin/AdminNavigation";
 
 export default function AdminProviderDashboard() {
   const { createProviderFull, isLoading } = useProviderStore();
@@ -48,9 +47,8 @@ export default function AdminProviderDashboard() {
   };
 
   return (
-    <div className=" w-full h-screen bg-main">
-      <AdminNavigation />
-      <div className="max-w-4xl  mx-auto p-6 bg-subMain shadow-lg rounded-md">
+    <div className=" w-full bg-main">
+      <div className="max-w-5xl  mx-auto p-6 bg-subMain shadow-lg rounded-md">
         <h1 className="text-2xl font-bold mb-6 text-center text-gray-700">
           Create New Provider
         </h1>
@@ -102,7 +100,7 @@ export default function AdminProviderDashboard() {
                 <div className="flex justify-between items-center mb-2">
                   <input
                     type="text"
-                    placeholder="Category Title"
+                    placeholder="Plan Name"
                     value={cat.title}
                     onChange={(e) => {
                       const newCats = [...categories];
@@ -129,7 +127,7 @@ export default function AdminProviderDashboard() {
                   <div key={j} className="flex gap-2 mb-2">
                     <input
                       type="text"
-                      placeholder="Offer Title"
+                      placeholder="Offer Name"
                       value={offer.title}
                       onChange={(e) => {
                         const newCats = [...categories];
@@ -148,7 +146,7 @@ export default function AdminProviderDashboard() {
                         newCats[i].offers[j].validity = e.target.value;
                         setCategories(newCats);
                       }}
-                      className="border border-gray-300 rounded-md px-2 py-1 w-32"
+                      className="border border-gray-300 rounded-md px-2 py-1 w-20 md:w-32"
                       required
                     />
                     <input
@@ -206,7 +204,7 @@ export default function AdminProviderDashboard() {
             }
             className="text-green-600 font-semibold"
           >
-            + Add Category
+            + Add Plan
           </button>
 
           {/* Submit */}

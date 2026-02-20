@@ -26,6 +26,7 @@ export const useProviderStore = create((set) => ({
         providers: [res.data, ...state.providers],
         isLoading: false,
       }));
+      window.location.reload();
     } catch (error) {
       console.error(error);
       set({ isLoading: false });
