@@ -2,7 +2,12 @@
 const nextConfig = {
   /* config options here */
   images: {
-    domains: ["images.unsplash.com", "media.istockphoto.com", "i.pinimg.com"],
+    domains: [
+      "images.unsplash.com",
+      "media.istockphoto.com",
+      "i.pinimg.com",
+      "i.pravatar.cc",
+    ],
   },
 };
 

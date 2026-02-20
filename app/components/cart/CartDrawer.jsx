@@ -1,3 +1,4 @@
+"use client";
 import {
   ArrowRight,
   Delete,
@@ -7,9 +8,12 @@ import {
   ShoppingCart,
   Trash,
 } from "lucide-react";
+import { useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 function CartDrawer() {
+  const checkboxRef = useRef(null);
   const cartItems = [
     {
       _id: "hdfn",
@@ -47,7 +51,12 @@ function CartDrawer() {
   return (
     // make drawer/container full height so it always spans viewport (especially on mobile)
     <div className="drawer drawer-end z-40 h-full">
-      <input id="cart-drawer" type="checkbox" className="drawer-toggle" />
+      <input
+        ref={checkboxRef}
+        id="cart-drawer"
+        type="checkbox"
+        className="drawer-toggle"
+      />
       <div className="drawer-content h-full">
         {/* Page content here */}
         <label htmlFor="cart-drawer" className=" drawer-button">
@@ -77,7 +86,10 @@ function CartDrawer() {
           </div>
           <div className=" flex-1 mt-2">
             {cartItems.map((product) => (
-              <div className="flex items-center justify-between py-3 border-b border-border group">
+              <div
+                key={product?._id}
+                className="flex items-center justify-between py-3 border-b border-border group"
+              >
                 <div className=" flex items-start gap-2">
                   <div className=" size-14 rounded-md relative overflow-hidden">
                     <Image
@@ -150,11 +162,17 @@ function CartDrawer() {
                 1200
               </h2>
             </div>
-
-            <div className=" w-full h-10 rounded-full bg-black text-white flex items-center gap-2 justify-center mt-2 cursor-pointer hover:bg-black/90 duration-200 ">
-              <h2 className=" text-lg mb-1">Checkout</h2>
-              <ArrowRight size={20} />
-            </div>
+            <Link
+              onClick={() => {
+                checkboxRef.current.checked = false;
+              }}
+              href="/cart"
+            >
+              <div className=" w-full h-10 rounded-full bg-black text-white flex items-center gap-2 justify-center mt-2 cursor-pointer hover:bg-black/90 duration-200 ">
+                <h2 className=" text-lg mb-1">Checkout</h2>
+                <ArrowRight size={20} />
+              </div>
+            </Link>
           </div>
         </div>
       </div>

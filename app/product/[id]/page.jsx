@@ -1,5 +1,6 @@
 "use client";
 
+import ImageGallery from "@/app/components/products/ImageGallery";
 import { Shield } from "lucide-react";
 import { useState } from "react";
 
@@ -8,7 +9,6 @@ export default function page() {
      IMAGE GALLERY STATE
   =========================== */
   const images = [
-    "https://images.unsplash.com/photo-1526481280695-3c687fd643ed?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1556155092-490a1ba16284?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
@@ -69,36 +69,7 @@ export default function page() {
       {/* ================= PRODUCT SECTION ================= */}
       <section className="max-w-6xl mx-auto px-6 md:px-0 py-16 grid md:grid-cols-2 gap-12">
         {/* LEFT SIDE */}
-        <div>
-          <div className="relative rounded-xl overflow-hidden bg-gray-100 h-[350px] md:h-[420px]">
-            <img
-              src={mainImage}
-              className="w-full h-full object-cover"
-              alt="Product"
-            />
-
-            <button className="absolute bottom-4 left-4 bg-white px-4 py-2 rounded-full shadow text-sm">
-              🔍 Preview Content
-            </button>
-          </div>
-
-          <div className="flex gap-3 mt-4">
-            {images.map((img, i) => (
-              <div
-                key={i}
-                onClick={() => {
-                  setMainImage(img);
-                  setActiveIndex(i);
-                }}
-                className={`w-20 h-16 rounded-lg overflow-hidden cursor-pointer border-2 ${
-                  activeIndex === i ? "border-green-500" : "border-transparent"
-                }`}
-              >
-                <img src={img} className="w-full h-full object-cover" />
-              </div>
-            ))}
-          </div>
-        </div>
+        <ImageGallery images={images} />
 
         {/* RIGHT SIDE */}
         <div>

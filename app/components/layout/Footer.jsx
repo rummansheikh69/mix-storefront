@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import {
   FaYoutube,
   FaInstagram,
@@ -12,6 +13,12 @@ import {
 } from "react-icons/fa";
 
 export default function Footer() {
+  const links = [
+    { label: "About us", href: "/about-us" },
+    { label: "Contact us", href: "/contact-us" },
+    { label: "Terms & Conditions", href: "/tos" },
+    { label: "Privacy Policy", href: "/policy" },
+  ];
   return (
     <footer className="bg-subMain">
       {/* ================= TOP CONTACT BAR ================= */}
@@ -91,19 +98,14 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-5">Quick Links</h3>
             <ul className="space-y-3">
-              {[
-                "About us",
-                "Contact us",
-                "Terms & Conditions",
-                "Privacy Policy",
-              ].map((item, index) => (
+              {links.map((item, index) => (
                 <li key={index}>
-                  <a
-                    href="#"
+                  <Link
+                    href={item.href}
                     className="text-gray-700 hover:text-black transition"
                   >
-                    {item}
-                  </a>
+                    {item.label}
+                  </Link>
                 </li>
               ))}
             </ul>
