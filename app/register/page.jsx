@@ -1,14 +1,16 @@
+"use client";
+import Image from "next/image";
 import Link from "next/link";
+import { useAuthStore } from "../store/useAuthStore";
 
 export default function Register() {
+  const { isSigningUp, signUp } = useAuthStore();
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center ">
-      <div className="w-[420px] text-center bg-white px-10 py-12 rounded-md shadow-md">
+      <div className="w-[420px] text-center bg-white px-10 py-6 rounded-md shadow-md">
         {/* Logo */}
-        <div className="mb-12">
-          <h1 className="text-3xl tracking-widest mb-2">
-            LUXE<span className="text-yellow-600">.</span>
-          </h1>
+        <div className="mb-12 flex flex-col items-center">
+          <Image src={"/logo.png"} width={120} height={120} alt="Logo" />
           <p className="text-xs tracking-wider text-gray-500">
             CREATE YOUR ACCOUNT
           </p>
@@ -16,6 +18,18 @@ export default function Register() {
 
         {/* Form */}
         <form className="space-y-8">
+          {/* Name */}
+          <div className="text-left">
+            <label className="text-xs uppercase tracking-wide text-gray-600 mb-2 block">
+              Name
+            </label>
+            <input
+              type="text"
+              placeholder="Jane Doe"
+              required
+              className="w-full border-b border-gray-400 focus:border-black outline-none p-2 text-sm bg-transparent"
+            />
+          </div>
           {/* Email */}
           <div className="text-left">
             <label className="text-xs uppercase tracking-wide text-gray-600 mb-2 block">

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function page() {
@@ -5,8 +6,9 @@ export default function page() {
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="bg-white w-[380px] px-10 py-12 text-center shadow-md rounded-md">
         {/* Logo */}
-        <div className="mb-10">
-          <h1 className="text-2xl font-bold tracking-widest mb-1">LUXE.</h1>
+        <div className="mb-10 flex flex-col items-center">
+          <Image src={"/logo.png"} width={120} height={120} alt="Logo" />
+
           <p className="text-xs text-gray-500">WELCOME BACK</p>
         </div>
 
