@@ -4,6 +4,8 @@ import "./globals.css";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import BottomNavigation from "./components/layout/BottomNavigation";
+import AuthInitializer from "./components/utils/AuthInitializer";
+import { Toaster } from "react-hot-toast";
 
 const banglaRegular = localFont({
   variable: "--font-bangla-regular",
@@ -43,10 +45,13 @@ export default function RootLayout({ children }) {
         // ensure the body is at least viewport height so descendant height-full works
         className={`${geistSans.variable} ${geistMono.variable} ${banglaRegular.variable} antialiased bg-main min-h-screen w-full`}
       >
-        <Navbar />
-        <div className=" pt-16">{children}</div>
-        <Footer />
-        <BottomNavigation />
+        <AuthInitializer>
+          <Navbar />
+          <div className=" pt-16">{children}</div>
+          <Footer />
+          <Toaster position="bottom-center" />
+          <BottomNavigation />
+        </AuthInitializer>
       </body>
     </html>
   );

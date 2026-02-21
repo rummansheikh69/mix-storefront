@@ -2,9 +2,39 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useAuthStore } from "../store/useAuthStore";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function Register() {
-  const { isSigningUp, signUp } = useAuthStore();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const { signUp, isSigningUp } = useAuthStore();
+
+  const validateForm = () => {
+    if (!formData.username.trim()) return toast.error("Name is required");
+    if (!formData.email.trim()) return toast.error("Email is required");
+    if (!/\S+@\S+\.\S+/.test(formData.email))
+      return toast.error("Invalid email format");
+    if (!formData.password) return toast.error("Password is required");
+    if (formData.password !== formData.confirmPassword)
+      return toast.error("Passwords do not match");
+    if (formData.password.length < 6)
+      return toast.error("Password must be at least 6 characters");
+
+    return true;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const success = validateForm();
+
+    if (success === true) signUp(formData);
+  };
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center ">
       <div className="w-[420px] text-center bg-white px-10 py-6 rounded-md shadow-md">
@@ -15,7 +45,6 @@ export default function Register() {
             CREATE YOUR ACCOUNT
           </p>
         </div>
-
         {/* Form */}
         <form className="space-y-8">
           {/* Name */}
@@ -26,7 +55,10 @@ export default function Register() {
             <input
               type="text"
               placeholder="Jane Doe"
-              required
+              value={formData.name}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
               className="w-full border-b border-gray-400 focus:border-black outline-none p-2 text-sm bg-transparent"
             />
           </div>
@@ -38,7 +70,10 @@ export default function Register() {
             <input
               type="email"
               placeholder="name@example.com"
-              required
+              value={formData.email}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
               className="w-full border-b border-gray-400 focus:border-black outline-none p-2 text-sm bg-transparent"
             />
           </div>
@@ -51,7 +86,10 @@ export default function Register() {
             <input
               type="password"
               placeholder="••••••••"
-              required
+              value={formData.password}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
               className="w-full border-b border-gray-400 focus:border-black outline-none p-2 text-sm bg-transparent"
             />
           </div>
@@ -64,7 +102,10 @@ export default function Register() {
             <input
               type="password"
               placeholder="••••••••"
-              required
+              value={formData.confirmPassword}
+              onChange={(e) =>
+                setFormData({ ...formData, confirmPassword: e.target.value })
+              }
               className="w-full border-b border-gray-400 focus:border-black outline-none p-2 text-sm bg-transparent"
             />
           </div>
@@ -89,17 +130,19 @@ export default function Register() {
             type="submit"
             className="w-full bg-black text-white p-3 text-xs tracking-widest hover:bg-gray-800 transition rounded"
           >
-            REGISTER
+            {isSigningUp ? "Registering..." : "REGISTER"}
           </button>
         </form>
-
         {/* Login Link */}
-        <Link href="/login">
-          <div className="mt-8 text-sm text-gray-600">
-            Already a member?{" "}
-            <a className="underline font-bold text-gray-900">Log In</a>
-          </div>
-        </Link>
+        <p className=" mt-3">
+          Already have account?{" "}
+          <Link
+            href="/login"
+            className="font-bold text-black hover:underline text-sm"
+          >
+            Login
+          </Link>
+        </p>
 
         {/* Footer */}
         <footer className="mt-10 text-[11px] text-gray-400 tracking-wider">
