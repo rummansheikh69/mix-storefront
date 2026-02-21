@@ -15,8 +15,8 @@ export default function Register() {
   const { signUp, isSigningUp } = useAuthStore();
 
   const validateForm = () => {
-    if (!formData.username.trim()) return toast.error("Name is required");
-    if (!formData.email.trim()) return toast.error("Email is required");
+    if (!formData.name) return toast.error("Name is required");
+    if (!formData.email) return toast.error("Email is required");
     if (!/\S+@\S+\.\S+/.test(formData.email))
       return toast.error("Invalid email format");
     if (!formData.password) return toast.error("Password is required");
@@ -46,7 +46,7 @@ export default function Register() {
           </p>
         </div>
         {/* Form */}
-        <form className="space-y-8">
+        <form className="space-y-8" onSubmit={handleSubmit}>
           {/* Name */}
           <div className="text-left">
             <label className="text-xs uppercase tracking-wide text-gray-600 mb-2 block">

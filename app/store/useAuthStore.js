@@ -8,6 +8,8 @@ export const useAuthStore = create((set, get) => ({
   isLoggingIn: false,
   isLoggingOut: false,
   isCheckingAuth: true,
+  isChangingPass: false,
+  isChangingEmail:false,
 
   checkAuth: async () => {
     try {
@@ -51,6 +53,43 @@ export const useAuthStore = create((set, get) => ({
       toast.error(error.response.data.error);
     } finally {
       set({ isLoggingIn: false });
+    }
+  },
+  changePass: async (data) => {
+    set({ isChangingPass: true });
+    try {
+      const res = await axiosInstance.post("/auth/change-password", data);
+      const user = res.data;
+      set({ authUser: user });
+
+      toast.success("Password Changed");
+      setTimeout(() => {
+        window.location.reload()
+      }, 300);
+    } catch (error) {
+      console.log("Error in login", error);
+      toast.error(error.response.data.error);
+    } finally {
+      set({ isChangingPass: false });
+    }
+  },
+
+  changeEmail: async (data) => {
+    set({ isChangingEmail: true });
+    try {
+      const res = await axiosInstance.post("/auth/change-email", data);
+      const user = res.data;
+      set({ authUser: user });
+
+      toast.success("Password Changed");
+      setTimeout(() => {
+        window.location.reload()
+      }, 300);
+    } catch (error) {
+      console.log("Error in login", error);
+      toast.error(error.response.data.error);
+    } finally {
+      set({ isChangingEmail: false });
     }
   },
 

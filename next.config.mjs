@@ -8,6 +8,7 @@ const nextConfig = {
       "i.pinimg.com",
       "i.pravatar.cc",
       "res.cloudinary.com",
+      "bdtechpark.com"
     ],
   },
 };

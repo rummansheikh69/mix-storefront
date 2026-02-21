@@ -19,7 +19,7 @@ export const useReviewStore = create((set, get) => ({
   submitReview: async (productId, { name, comment, rating }) => {
     try {
       set({ isSubmitting: true });
-      const res = await axios.post(`/api/user/reviews/${productId}`, {
+      const res = await axiosInstance.post(`/user/review/${productId}`, {
         name,
         comment,
         rating,
