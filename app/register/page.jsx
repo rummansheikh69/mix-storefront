@@ -17,8 +17,13 @@ export default function Register() {
   const { signUp, isSigningUp } = useAuthStore();
 
   const validateForm = () => {
+<<<<<<< HEAD
     if (!formData.name.trim()) return toast.error("Name is required");
     if (!formData.email.trim()) return toast.error("Email is required");
+=======
+    if (!formData.name) return toast.error("Name is required");
+    if (!formData.email) return toast.error("Email is required");
+>>>>>>> f90eece20ce03dc7bc1baa3cec4ae1c0591727c2
     if (!/\S+@\S+\.\S+/.test(formData.email))
       return toast.error("Invalid email format");
     if (!formData.password) return toast.error("Password is required");
@@ -156,6 +161,112 @@ export default function Register() {
             © {new Date().getFullYear()} LUXE. ALL RIGHTS RESERVED.
           </footer>
         </div>
+<<<<<<< HEAD
+=======
+        {/* Form */}
+        <form className="space-y-8" onSubmit={handleSubmit}>
+          {/* Name */}
+          <div className="text-left">
+            <label className="text-xs uppercase tracking-wide text-gray-600 mb-2 block">
+              Name
+            </label>
+            <input
+              type="text"
+              placeholder="Jane Doe"
+              value={formData.name}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
+              className="w-full border-b border-gray-400 focus:border-black outline-none p-2 text-sm bg-transparent"
+            />
+          </div>
+          {/* Email */}
+          <div className="text-left">
+            <label className="text-xs uppercase tracking-wide text-gray-600 mb-2 block">
+              Email Address
+            </label>
+            <input
+              type="email"
+              placeholder="name@example.com"
+              value={formData.email}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
+              className="w-full border-b border-gray-400 focus:border-black outline-none p-2 text-sm bg-transparent"
+            />
+          </div>
+
+          {/* Create Password */}
+          <div className="text-left">
+            <label className="text-xs uppercase tracking-wide text-gray-600 mb-2 block">
+              Create Password
+            </label>
+            <input
+              type="password"
+              placeholder="••••••••"
+              value={formData.password}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
+              className="w-full border-b border-gray-400 focus:border-black outline-none p-2 text-sm bg-transparent"
+            />
+          </div>
+
+          {/* Confirm Password */}
+          <div className="text-left">
+            <label className="text-xs uppercase tracking-wide text-gray-600 mb-2 block">
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              placeholder="••••••••"
+              value={formData.confirmPassword}
+              onChange={(e) =>
+                setFormData({ ...formData, confirmPassword: e.target.value })
+              }
+              className="w-full border-b border-gray-400 focus:border-black outline-none p-2 text-sm bg-transparent"
+            />
+          </div>
+
+          {/* Terms */}
+          <div className="flex items-center gap-2 text-sm text-gray-600">
+            <input type="checkbox" required className="w-4 h-4 accent-black" />
+            <span>
+              I agree to the{" "}
+              <Link href="tos" className="underline text-gray-900">
+                Terms of Service
+              </Link>{" "}
+              and{" "}
+              <Link href="policy" className="underline text-gray-900">
+                Privacy Policy
+              </Link>
+            </span>
+          </div>
+
+          {/* Register Button */}
+          <button
+            type="submit"
+            className="w-full bg-black text-white p-3 text-xs tracking-widest hover:bg-gray-800 transition rounded"
+          >
+            {isSigningUp ? "Registering..." : "REGISTER"}
+          </button>
+        </form>
+        {/* Login Link */}
+        <p className=" mt-3">
+          Already have account?{" "}
+          <Link
+            href="/login"
+            className="font-bold text-black hover:underline text-sm"
+          >
+            Login
+          </Link>
+        </p>
+
+        {/* Footer */}
+        <footer className="mt-10 text-[11px] text-gray-400 tracking-wider">
+          © {new Date().getFullYear()} LUXE. ALL RIGHTS RESERVED.
+        </footer>
+>>>>>>> f90eece20ce03dc7bc1baa3cec4ae1c0591727c2
       </div>
     </LoginGuard>
   );
