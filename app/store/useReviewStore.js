@@ -1,9 +1,11 @@
 import { create } from "zustand";
 import { axiosInstance } from "../lib/axios";
+import toast from "react-hot-toast";
 
 export const useReviewStore = create((set, get) => ({
   reviews: [],
   isLoading: false,
+  isSubmitting: false,
 
   fetchReviews: async (productId) => {
     try {
@@ -16,18 +18,24 @@ export const useReviewStore = create((set, get) => ({
     }
   },
 
-  submitReview: async (productId, { name, comment, rating }) => {
+  submitReview: async (productId, { comment, rating }) => {
     try {
       set({ isSubmitting: true });
-      const res = await axios.post(`/api/user/reviews/${productId}`, {
-        name,
+
+      const res = await axiosInstance.post(`/user/reviews/${productId}`, {
         comment,
         rating,
       });
-      // add new review to state
-      set((state) => ({ reviews: [res.data, ...state.reviews] }));
+
+      set((state) => ({
+        reviews: Array.isArray(state.reviews)
+          ? [res.data, ...state.reviews]
+          : [res.data],
+      }));
+
+      toast.success("Review submitted successfully");
     } catch (err) {
-      console.error("Error submitting review", err);
+      toast.error(err.response?.data?.message || "Something went wrong");
     } finally {
       set({ isSubmitting: false });
     }
